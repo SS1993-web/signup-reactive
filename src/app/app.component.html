@@ -5,22 +5,22 @@
       LCO Signup Form
     </h5>
     <div class="card-body">
-      <form >
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
           <div class="form-group col-6">
             <label>First Name</label>
-            <input type="text" class="form-control" />
-            <div class="text-warning">
-              <div>
+            <input type="text" formControlName="firstName" class="form-control" />
+            <div *ngIf="submitted && formValues.firstName.errors" class="text-warning">
+              <div *ngIf="formValues.firstName.errors.required">
                 First Name is required
               </div>
             </div>
           </div>
           <div class="form-group col-6">
             <label>Last Name</label>
-            <input type="text" class="form-control" />
-            <div class="text-warning">
-              <div>
+            <input type="text" formControlName="lastName" class="form-control" />
+            <div *ngIf="submitted && formValues.lastName.errors" class="text-warning">
+              <div *ngIf="formValues.lastName.errors.required">
                 Last Name is required
               </div>
             </div>
@@ -28,62 +28,59 @@
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="text" class="form-control" />
-          <div class="text-warning">
-            <div>Email is required</div>
-            <div>
+          <input type="text" formControlName="email" class="form-control" />
+          <div *ngIf="submitted && formValues.email.errors" class="text-warning">
+            <div *ngIf="formValues.email.errors.required">
+              Email is required</div>
+            <div *ngIf="formValues.email.errors.email">
               Email must be a valid email address
-            </div>
           </div>
         </div>
-
-        <ng-container>
-          <div class="text-danger">
-            Value is required.
-          </div>
-        </ng-container>
-        <div class="form-row">
-          <div class="form-group col">
-            <label>Password</label>
-            <input type="password" class="form-control" />
-            <div class="text-warning">
-              <div>Password is required</div>
-              <div>
-                Password must be at least 6 characters
-              </div>
-            </div>
-          </div>
-          <div class="form-group col">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" />
-            <div class="text-warning">
-              <div>
-                Confirm Password is required
-              </div>
-              <div>
-                Passwords must match
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" id="acceptTerms" class="form-check-input" />
-          <label for="acceptTerms" class="form-check-label"
-            >Accept Terms & Conditions</label
-          >
-          <div class="text-warning">
-            Accept Ts & Cs is required
-          </div>
-        </div>
-        <div class="text-center">
-          <button class="btn btn-success btn-lg px-4 mr-3">Register</button>
-          <button class="btn btn-warning" type="reset">
-            Reset
-          </button>
-          <p class="text white">Value: {{ registerForm.value | json }}</p>
-          <p class="text white">Value: {{ registerForm.valid | json }}</p>
-        </div>
-      </form>
     </div>
+
+    <!-- <ng-container>
+      <div class="text-danger">
+        Value is required.
+      </div>
+    </ng-container> -->
+    <div class="form-row">
+      <div class="form-group col">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control" />
+        <div>Password is required</div>
+        <div>
+          Password must be at least 6 characters
+        </div>
+      </div>
+      <div class="form-group col">
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" class="form-control" />
+        <div>
+          Confirm Password is required
+        </div>
+        <div>
+          Passwords must match
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" formControlName="acceptTandC" id="acceptTerms" class="form-check-input" />
+      <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+      <div *ngIf="submitted && formValues.acceptTandC.errors" class="text-warning">
+        <div *ngIf="formValues.acceptTandC.errors">
+          Accept Ts & Cs is required
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-success btn-lg px-4 mr-3">Register</button>
+      <button class="btn btn-warning" type="reset" (click)="onReset()">
+        Reset
+      </button>
+      <p class="text white">Value: {{ registerForm.value | json }}</p>
+      <p class="text white">Value: {{ registerForm.valid | json }}</p>
+    </div>
+    </form>
   </div>
+</div>
 </div>

@@ -10,8 +10,11 @@ export function PasswordChecker(
 
     if (password.value !== confPassword.value) {
       confPassword.setErrors({ mustMatch: true });
+      console.log("fucked");
     } else {
       confPassword.setErrors(null);
+      console.log("nullfucked");
+
     }
   };
 }

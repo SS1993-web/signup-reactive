@@ -10,29 +10,32 @@ import { PasswordChecker } from "./coustom-validator/password-check";
 })
 export class AppComponent implements OnInit {
   title = "signup-reactive";
-  
 
-  registerForm:FormGroup ;
+
+  registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formbuilder: FormBuilder) {}
+  constructor(private formbuilder: FormBuilder) { }
 
   ngOnInit() {
-    
+
     this.registerForm = this.formbuilder.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.required, Validators.email],
+      email: ["",  [Validators.required, Validators.email]],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
       acceptTandC: [false, Validators.requiredTrue],
-    },{
+    }, {
       validators: PasswordChecker("password", "confirmPassword"),
     });
   }
 
+  get formValues() { return this.registerForm.controls; }
+
   onSubmit() {
     this.submitted = true;
+    console.log(this.registerForm);
     if (this.registerForm.invalid) {
       return;
     }
